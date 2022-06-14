@@ -1,1 +1,1 @@
-# CE final: LFHE with LWE
+# CE final: LFHE from LWE
