@@ -18,7 +18,7 @@ def BitDecomp_inverse(b, q):
     k = int(b.size/b.shape[0]/l)   # col# of result
     assert b.size == k*l*b.shape[0]
 
-    a = np.empty([0,l])
+    a = np.empty([0,k])
     for row in range(b.shape[0]):
         a_row = np.empty(0)
         for i in range (k):
@@ -42,6 +42,7 @@ def Powerof2(s, q):
         for i in range(l):
             result = np.append(result,[int((num*power)%q)])
             power *= 2
+            power %= q
     return result
 
 # Fact1: <a,s> = <BitDecomp(a), Powersof2(s)>

@@ -30,15 +30,22 @@ class ApproxEigenvecHomorphicSystem:
     
     def enc(self, pk, mu):
         r = np.random.randint(2, size = (self.N, self.m))
-        return Flatten(mu * np.identity(self.N) + BitDecomp(np.matmul(r, pk), self.q))
+        return Flatten(mu * np.identity(self.N) + BitDecomp(np.matmul(r, pk) % self.q, self.q), self.q)
         pass
 
     def dec(self, sk, C):
         i = self.l - 2
-        v = Powerof2(sk)
-        x_i = np.inner(C[i, :], v)
-        return x_i / v[i]
+        v = Powerof2(sk, self.q)
+        x_i = np.inner(C[i, :], v) % self.q
+        print(x_i, v[i], self.q)
+        return int(np.round(x_i / v[i]))
         pass
+
+    def add(self, C1, C2):
+        return Flatten((C1 + C2) % self.q, self.q)
+    
+    def mul(self, C1, C2):
+        return Flatten(np.matmul(C1, C2) % self.q, self.q)
 
 if __name__ == '__main__':
     pass
