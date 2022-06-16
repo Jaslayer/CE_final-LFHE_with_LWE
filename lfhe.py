@@ -24,7 +24,7 @@ class ApproxEigenvecHomorphicSystem:
         B = np.random.randint(self.q, size = (self.m, self.n))
         e = np.array([self.chi() for _ in range(self.m)])
         b = (np.matmul(B, t) + e) % self.q
-        A = np.concatenate([B, b[:, np.newaxis]], axis = 1)
+        A = np.concatenate([b[:, np.newaxis], B], axis = 1)
         return sk, A
         pass
     
@@ -36,6 +36,9 @@ class ApproxEigenvecHomorphicSystem:
     def dec(self, sk, C):
         i = self.l - 2
         v = Powerof2(sk, self.q)
+        # print(v)
+        print(C.shape)
+        # print(v.shape)
         x_i = np.inner(C[i, :], v) % self.q
         print(x_i, v[i], self.q)
         return int(np.round(x_i / v[i]))
